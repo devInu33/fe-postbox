@@ -1,4 +1,5 @@
 import {Visitor} from "./Visitor.js";
+import {Mailbox} from "./Mailbox.js";
 
 export const randomBoolean = () => Math.random() < 0.5;
 export const quickSort = (array, left = 0, right = array.length - 1) => {
@@ -34,8 +35,9 @@ export const quickSort = (array, left = 0, right = array.length - 1) => {
   return array;
 };
 
+export const randomNum = (num)=> Math.random() * num
 export const action = (element) => {
-  if (element instanceof Town) {
-    element.Mailbox ? Visitor.boxes.add(element.Mailbox) : null;
+  if (element instanceof Mailbox) {
+    Visitor.boxes.add(element);
   } else return;
 };

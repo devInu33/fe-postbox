@@ -1,6 +1,6 @@
 import Town from "./Town.js";
 import { Visitor } from "./Visitor.js";
-import { action } from "./util.js";
+import {action, randomNum} from "./util.js";
 
 const init = () => {
   const base = document.createElement("div");
@@ -10,13 +10,11 @@ const init = () => {
 
   const town = new Town(base);
 
-  const num = Math.random() * 20;
+  const num = randomNum(20);
   for (let i = 0; i < num; i++) {
     new Town();
   }
-
   town.render();
-
   const visitor = new Visitor(town, action);
 };
 

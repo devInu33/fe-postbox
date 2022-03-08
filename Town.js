@@ -1,11 +1,12 @@
 import { Mailbox } from "./Mailbox.js";
-import { randomBoolean } from "./util.js";
+import {randomBoolean, randomNum} from "./util.js";
 
 export default class Town {
   #parent;
   #children = new Set();
   mailBox = null;
   element;
+  name;
   static #objects = new Set();
 
   constructor(parent = null) {
@@ -21,7 +22,7 @@ export default class Town {
     this.element.style.height = `${this.#parent.clientHeight / 2}px`;
     this.#parent.appendChild(this.element);
 
-    let num = Math.random() * Town.#objects.size;
+    let num = randomNum(Town.#objects.size);
     const bool = randomBoolean();
 
     if (bool) {
@@ -32,7 +33,6 @@ export default class Town {
       Town.#objects.forEach((town) => {
         if (num > 0) {
           this.#children.add(town);
-
           town.#parent = this.element;
           town.render();
           num--;
@@ -42,7 +42,7 @@ export default class Town {
   }
   createMailbox() {
     const size = Math.random() + 1;
-    this.mailBox = new Mailbox(size);
+    this.mailBox = new Mailbox(size, this.element);
     this.mailBox.render(this);
   }
 }

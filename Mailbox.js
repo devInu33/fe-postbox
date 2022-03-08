@@ -1,15 +1,17 @@
 export class Mailbox {
   size;
+  #parent;
   el = document.createElement("div");
-  constructor(size) {
+  constructor(size, parent) {
     this.size = size;
     this.el.classList.add('mailbox');
     this.el.innerText = `📮`;
+    this.#parent = parent;
   }
 
-  render(town) {
-    this.el.style.width = `${town.width / 2}px`;
-    this.el.style.height = `${town.height / 2}px`;
-    town.element.appendChild(this.el);
+  render() {
+    this.el.style.width = `${this.#parent.style.width / 2}px`;
+    this.el.style.height = `${this.#parent.style.height / 2}px`;
+    this.#parent.appendChild(this.el);
   }
 }
