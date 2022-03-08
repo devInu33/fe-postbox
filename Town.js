@@ -14,6 +14,7 @@ export default class Town {
   }
 
   render() {
+    Town.#objects.delete(this);
     let num = Math.random(Town.#objects.size);
     Town.#objects.forEach((town) => {
       if (num > 0) {
