@@ -1,3 +1,5 @@
+import {Visitor} from "./Visitor.js";
+
 export const randomBoolean = () => Math.random() < 0.5;
 export const quickSort = (array, left = 0, right = array.length - 1) => {
   if (left >= right) {

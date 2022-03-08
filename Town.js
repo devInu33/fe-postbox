@@ -11,13 +11,14 @@ export default class Town {
   constructor(parent) {
     this.#parent = parent;
     this.element = document.createElement("div");
+    this.element.classList.add('town')
     Town.#objects.add(this);
   }
 
   render() {
     Town.#objects.delete(this);
-    this.element.style.width = `${this.#parent.width / 2}px`;
-    this.element.style.height = `${this.#parent.height / 2}px`;
+    this.element.style.width = `${this.#parent.clientWidth / 2}px`;
+    this.element.style.height = `${this.#parent.clientHeight / 2}px`;
     this.#parent.appendChild(this.element);
 
     let num = Math.random() * Town.#objects.size;

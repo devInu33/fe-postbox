@@ -3,6 +3,8 @@ export class Mailbox {
   el = document.createElement("div");
   constructor(size) {
     this.size = size;
+    this.el.classList.add('mailbox');
+    this.el.innerText = `📮`;
   }
 
   render(town) {

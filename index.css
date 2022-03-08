@@ -1,0 +1,24 @@
+body{
+    display:flex;
+}
+.town{
+    border-radius: 20px;
+    border: 3px solid blue;
+}
+.info{
+    right:0;
+    height:100%;
+    width:200px;
+
+}
+.redbutton{
+    background-color: red;
+    border-radius:8px;
+    width:100px;
+    height:25px;
+    color:white;
+    text-align: center;
+}
+.mailbox{
+
+}

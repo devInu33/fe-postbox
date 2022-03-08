@@ -1,7 +1,7 @@
-import { Mailbox } from "./Mailbox";
+
 import { quickSort } from "./util.js";
 
-class Visitor {
+export class Visitor {
   el;
   static boxes = new Set();
   visit(target, action) {
@@ -18,6 +18,8 @@ class Visitor {
     const arr = [];
     Visitor.boxes.forEach((element) => arr.push(element.size));
     quickSort(arr);
-    document.querySelector("button").innerHTML = ``;
+    document.querySelector(".info").insertAdjacentHTML('beforeend', `
+      ${arr.map(size=>`${size}`).join(',')}
+    `);
   }
 }
