@@ -1,3 +1,5 @@
+import {Mailbox} from "./Mailbox";
+
 export default class Town {
   #parent;
   #children = new Set();
@@ -13,23 +15,31 @@ export default class Town {
 
   render() {
     Town.#objects.delete(this);
-    this.element.style.width = this.#parent.width / 2;
-    this.element.style.height = this.#parent.height / 2;
+    this.element.style.width = `${this.#parent.width / 2}px`;
+    this.element.style.height = `${this.#parent.height / 2}px`;
     this.#parent.appendChild(this.element);
-    let num = Math.random(Town.#objects.size);
 
+    let num = Math.random()*Town.#objects.size;
+    const bool = Math.random()<0.5;
     if (Town.#objects.size) {
       Town.#objects.forEach((town) => {
         if (num > 0) {
           this.#children.add(town);
+
           town.#parent = this;
+          town.render();
+          if(bool){
+            town.createMailbox()
+          }
           num--;
         }
       });
 
-      this.#children.forEach((town) => {
-        town.render();
-      });
     } else return;
+  }
+  createMailbox(){
+    const size = Math.random()+1
+    this.mailBox = new Mailbox(this, size);
+    this.mailBox.render();
   }
 }
