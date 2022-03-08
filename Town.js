@@ -1,4 +1,5 @@
-import {Mailbox} from "./Mailbox";
+import { Mailbox } from "./Mailbox.js";
+import { randomBoolean } from "./util.js";
 
 export default class Town {
   #parent;
@@ -19,27 +20,28 @@ export default class Town {
     this.element.style.height = `${this.#parent.height / 2}px`;
     this.#parent.appendChild(this.element);
 
-    let num = Math.random()*Town.#objects.size;
-    const bool = Math.random()<0.5;
+    let num = Math.random() * Town.#objects.size;
+    const bool = randomBoolean();
+
+    if (bool) {
+      this.createMailbox();
+    }
+
     if (Town.#objects.size) {
       Town.#objects.forEach((town) => {
         if (num > 0) {
           this.#children.add(town);
 
-          town.#parent = this;
+          town.#parent = this.element;
           town.render();
-          if(bool){
-            town.createMailbox()
-          }
           num--;
         }
       });
-
     } else return;
   }
-  createMailbox(){
-    const size = Math.random()+1
-    this.mailBox = new Mailbox(this, size);
-    this.mailBox.render();
+  createMailbox() {
+    const size = Math.random() + 1;
+    this.mailBox = new Mailbox(size);
+    this.mailBox.render(this);
   }
 }
