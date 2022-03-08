@@ -8,10 +8,10 @@ export default class Town {
   element;
   static #objects = new Set();
 
-  constructor(parent) {
+  constructor(parent = null) {
     this.#parent = parent;
     this.element = document.createElement("div");
-    this.element.classList.add('town')
+    this.element.classList.add("town");
     Town.#objects.add(this);
   }
 
