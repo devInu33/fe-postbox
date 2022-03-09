@@ -4,7 +4,6 @@ import {Visitor} from "./Visitor.js";
 
 export default class Town {
   #parent;
-  #children = new Set();
   mailBox = null;
   element;
   name;
@@ -28,14 +27,13 @@ export default class Town {
     this.#parent.appendChild(this.element);
 
 
-
+    this.#parent.appendChild(this)
     if (bool) {
       this.createMailbox();
     }
     if(!Town.#objects.size)return;
     for (const town of Town.#objects){
       if (num) {
-        // this.#children.add(town);
         town.#parent = this.element;
         town.render();
         num--;
