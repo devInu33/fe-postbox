@@ -1,5 +1,5 @@
-import {Visitor} from "./Visitor.js";
-import {Mailbox} from "./Mailbox.js";
+import { Visitor } from "./Visitor.js";
+import { Mailbox } from "./Mailbox.js";
 
 export const randomBoolean = () => Math.random() < 0.5;
 export const quickSort = (array, left = 0, right = array.length - 1) => {
@@ -12,9 +12,6 @@ export const quickSort = (array, left = 0, right = array.length - 1) => {
   quickSort(array, left, partition - 1);
   quickSort(array, partition, right);
   function divide(array, left, right, pivot) {
-    console.log(
-      `array: ${array}, left: ${array[left]}, pivot: ${pivot}, right: ${array[right]}`
-    );
     while (left <= right) {
       while (array[left] < pivot) {
         left++;
@@ -35,9 +32,13 @@ export const quickSort = (array, left = 0, right = array.length - 1) => {
   return array;
 };
 
-export const randomNum = (num)=> Math.random() * num
+export const randomNum = (num) => Math.random() * num;
 export const action = (element) => {
-  if (element instanceof Mailbox) {
-    Visitor.boxes.add(element);
+  if (element.classList.contains("mailbox")) {
+    Visitor.sizes.push(element.dataset.size);
+  } else if (element.classList.contains("town")) {
+    Visitor.towns.push(element.dataset.name);
   } else return;
 };
+
+export const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
