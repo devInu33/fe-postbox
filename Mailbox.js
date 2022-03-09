@@ -4,8 +4,9 @@ export class Mailbox {
   el = document.createElement("div");
   constructor(size, parent) {
     this.size = size;
-    this.el.classList.add('mailbox');
+    this.el.classList.add("mailbox");
     this.el.innerText = `📮`;
+    this.el.dataset["size"] = size;
     this.#parent = parent;
   }
 

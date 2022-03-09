@@ -1,19 +1,18 @@
 import { Mailbox } from "./Mailbox.js";
-import {randomBoolean, randomNum} from "./util.js";
+import { randomBoolean, randomNum } from "./util.js";
 
 export default class Town {
   #parent;
   #children = new Set();
   mailBox = null;
   element;
-  name;
   static #objects = new Set();
 
-  constructor(parent = null) {
+  constructor(name = undefined, parent = null) {
     this.#parent = parent;
     this.element = document.createElement("div");
     this.element.classList.add("town");
-    this.mailBox = randomBoolean()? new Mailbox(Math.random()+1, this.element):null;
+    this.element.dataset["name"] = name;
     Town.#objects.add(this);
   }
 
@@ -42,6 +41,6 @@ export default class Town {
   createMailbox() {
     const size = Math.random() + 1;
     this.mailBox = new Mailbox(size, this.element);
-    this.mailBox.render(this);
+    this.mailBox.render();
   }
 }

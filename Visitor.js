@@ -1,15 +1,17 @@
 import { quickSort } from "./util.js";
-import {Mailbox} from "./Mailbox.js";
+import { Mailbox } from "./Mailbox.js";
 
 export class Visitor {
   el;
   #target;
   #action;
-  static boxes = new Set();
+  static sizes = [];
+  static towns = [];
   constructor(target, action) {
-    this.#target= target;
+    this.#target = target;
     this.#action = action;
     const info = document.createElement("div");
+
     info.innerHTML = `
       <button class="redbutton">빨강 우체통 확인</button>
        <div class="description"></div>
@@ -24,7 +26,8 @@ export class Visitor {
   }
   visit() {
     const stack = [];
-    let curr = this.#target.firstElementChild;
+    // debugger;
+    let curr = this.#target.element.firstElementChild;
     if (!curr) return;
     do {
       this.#action(curr);
@@ -33,17 +36,13 @@ export class Visitor {
     } while ((curr = stack.pop()));
   }
   print() {
-    const sizes = [];
-    const towns= [];
-    Visitor.boxes.forEach((mailbox) => {
-      sizes.push(mailbox.size)
-      towns.push(mailbox.parent)
-    });
-    quickSort(sizes);
 
+    quickSort(Visitor.sizes);
 
-    // (".info>.description").innerHTML =
-    //     `<p>${sizes.map(size=>`${size}`).join(',')}</p>
-    // <p>${towns.map(town=>`${town.name}`).join(',')}</p>`;
+    document.querySelector(".info>.description").innerHTML = `<p>${Visitor.sizes
+      .map((size) => `${size}`)
+      .join(",")}</p>
+    <p>${Visitor.towns.map((town) => `${town}`).join(",")}</p>`;
+
   }
 }
