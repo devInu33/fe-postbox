@@ -1,7 +1,7 @@
 import Town from "./Town.js";
 import { Visitor } from "./Visitor.js";
 import { action, randomNum, randomChars } from "./util.js";
-import {CheckButton} from "./CheckButton.js";
+import { CheckButton } from "./CheckButton.js";
 
 const init = () => {
   const base = document.createElement("div");

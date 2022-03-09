@@ -2,7 +2,6 @@ import { Mailbox } from "./Mailbox.js";
 import { Model } from "./Model.js";
 import { randomBoolean, randomNum } from "./util.js";
 
-
 export default class Town extends Model {
   mailBox = null;
   name;
@@ -14,10 +13,8 @@ export default class Town extends Model {
   }
 
   _render() {
-    Model.objects.delete(this);
     let num = randomNum(Model.objects.size);
-    this.el.style.width = `${Math.floor(this.parent.style.width/num)  }px`;
-    this.el.style.height = `${Math.floor(this.parent.style.height/num)  }px`;
+
     this.el.classList.add("town");
     this.el.dataset["name"] = this.name;
     const bool = randomBoolean();
