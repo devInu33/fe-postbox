@@ -1,7 +1,3 @@
-import { quickSort } from "./util.js";
-import { Mailbox } from "./Mailbox.js";
-import {Model} from "./Model.js";
-
 export class Visitor {
   el;
   #target;
@@ -20,6 +16,4 @@ export class Visitor {
       if (curr.nextElementSibling) stack.push(curr.nextElementSibling);
     } while ((curr = stack.pop()));
   }
-
 }
-

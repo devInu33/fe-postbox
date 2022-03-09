@@ -1,8 +1,12 @@
 import { Visitor } from "./Visitor.js";
-import { Mailbox } from "./Mailbox.js";
 
 export const randomBoolean = () => Math.random() < 0.5;
-export const quickSort = (array, compare, left = 0, right = array.length - 1  ) => {
+export const quickSort = (
+  array,
+  compare,
+  left = 0,
+  right = array.length - 1
+) => {
   if (left >= right) {
     return;
   }
@@ -13,11 +17,11 @@ export const quickSort = (array, compare, left = 0, right = array.length - 1  ) 
   quickSort(array, compare, left, partition - 1);
   quickSort(array, compare, partition, right);
   function divide(array, left, right, pivot) {
-    while (left<= right) {
+    while (left <= right) {
       while (compare(array[left], pivot)) {
         left++;
       }
-      while (compare(array[right],pivot)) {
+      while (compare(array[right], pivot)) {
         right--;
       }
       if (left <= right) {
@@ -33,7 +37,7 @@ export const quickSort = (array, compare, left = 0, right = array.length - 1  ) 
   return array;
 };
 
-export const randomNum = (num) => Math.floor(Math.random() * num)+1;
+export const randomNum = (num) => Math.floor(Math.random() * num) + 1;
 export const action = (element) => {
   if (element.classList.contains("mailbox")) {
     Visitor.sizes.push(element.dataset.size);
