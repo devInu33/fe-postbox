@@ -1,10 +1,9 @@
 import { Mailbox } from "./Mailbox.js";
 import { randomBoolean, randomNum } from "./util.js";
-import {Visitor} from "./Visitor.js";
+import { Visitor } from "./Visitor.js";
 
 export default class Town {
   #parent;
-  #children = new Set();
   mailBox = null;
   element;
   name;
@@ -27,15 +26,12 @@ export default class Town {
     this.element.style.height = `${this.#parent.clientHeight / num}px`;
     this.#parent.appendChild(this.element);
 
-
-
     if (bool) {
       this.createMailbox();
     }
-    if(!Town.#objects.size)return;
-    for (const town of Town.#objects){
+    if (!Town.#objects.size) return;
+    for (const town of Town.#objects) {
       if (num) {
-        // this.#children.add(town);
         town.#parent = this.element;
         town.render();
         num--;
@@ -43,9 +39,9 @@ export default class Town {
     }
   }
   createMailbox() {
-    const size = Math.floor(Math.random()*Town.#objects.size+1);
+    const size = Math.floor(Math.random() * Town.#objects.size + 1);
     this.mailBox = new Mailbox(size, this.element);
-    Visitor.boxes.add(this)
+    Visitor.boxes.add(this);
     this.mailBox.render();
   }
 }
