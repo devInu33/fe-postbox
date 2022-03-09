@@ -1,23 +1,26 @@
 import { quickSort } from "./util.js";
-import {Mailbox} from "./Mailbox.js";
+import { Mailbox } from "./Mailbox.js";
 
 export class Visitor {
   el;
   #target;
   #action;
-  static boxes = new Set();
+  static sizes = [];
+  static towns = [];
   constructor(target, action) {
-    this.#target= target;
+    this.#target = target;
     this.#action = action;
     const info = document.createElement("div");
-    const button = document.createElement("button");
-    const description  =document.createElement('div');
-    button.innerText = `빨간 우체통 확인`;
     info.appendChild(button);
-    info.appendChild(description)
+    info.appendChild(description);
     info.classList.add("info");
+
+    const button = document.createElement("button");
+    button.innerText = `빨간 우체통 확인`;
     button.classList.add("redbutton");
-    description.classList.add('description');
+
+    const description = document.createElement("div");
+    description.classList.add("description");
     document.body.appendChild(info);
 
     button.addEventListener("click", () => {
@@ -28,7 +31,7 @@ export class Visitor {
   visit() {
     const stack = [];
     // debugger;
-    let curr = this.#target.firstElementChild;
+    let curr = this.#target.element.firstElementChild;
     if (!curr) return;
     do {
       this.#action(curr);
@@ -37,18 +40,11 @@ export class Visitor {
     } while ((curr = stack.pop()));
   }
   print() {
-    const sizes = [];
-    const towns= [];
-    Visitor.boxes.forEach((mailbox) => {
-      sizes.push(mailbox.size)
-      towns.push(mailbox.parent)
-    });
-    console.log(Visitor.boxes);
-    quickSort(sizes);
+    quickSort(Visitor.sizes);
 
-
-    document.querySelector(".info>.description").innerHTML =
-        `<p>${sizes.map(size=>`${size}`).join(',')}</p>
-    <p>${towns.map(town=>`${town.name}`).join(',')}</p>`;
+    document.querySelector(".info>.description").innerHTML = `<p>${Visitor.sizes
+      .map((size) => `${size}`)
+      .join(",")}</p>
+    <p>${Visitor.towns.map((town) => `${town}`).join(",")}</p>`;
   }
 }
