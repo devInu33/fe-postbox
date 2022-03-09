@@ -10,24 +10,20 @@ export class Visitor {
     this.#target= target;
     this.#action = action;
     const info = document.createElement("div");
-    const button = document.createElement("button");
-    const description  =document.createElement('div');
-    button.innerText = `빨간 우체통 확인`;
-    info.appendChild(button);
-    info.appendChild(description)
+    info.innerHTML = `
+      <button class="redbutton">빨강 우체통 확인</button>
+       <div class="description"></div>
+    `
     info.classList.add("info");
-    button.classList.add("redbutton");
-    description.classList.add('description');
     document.body.appendChild(info);
 
-    button.addEventListener("click", () => {
+    info.button.addEventListener("click", ({target}) => {
       this.visit(target, action);
       this.print();
     });
   }
   visit() {
     const stack = [];
-    // debugger;
     let curr = this.#target.firstElementChild;
     if (!curr) return;
     do {
@@ -43,12 +39,11 @@ export class Visitor {
       sizes.push(mailbox.size)
       towns.push(mailbox.parent)
     });
-    console.log(Visitor.boxes);
     quickSort(sizes);
 
 
-    document.querySelector(".info>.description").innerHTML =
-        `<p>${sizes.map(size=>`${size}`).join(',')}</p>
-    <p>${towns.map(town=>`${town.name}`).join(',')}</p>`;
+    // (".info>.description").innerHTML =
+    //     `<p>${sizes.map(size=>`${size}`).join(',')}</p>
+    // <p>${towns.map(town=>`${town.name}`).join(',')}</p>`;
   }
 }

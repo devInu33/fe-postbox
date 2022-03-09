@@ -13,6 +13,7 @@ export default class Town {
     this.#parent = parent;
     this.element = document.createElement("div");
     this.element.classList.add("town");
+    this.mailBox = randomBoolean()? new Mailbox(Math.random()+1, this.element):null;
     Town.#objects.add(this);
   }
 
@@ -28,17 +29,15 @@ export default class Town {
     if (bool) {
       this.createMailbox();
     }
-
-    if (Town.#objects.size) {
-      Town.#objects.forEach((town) => {
-        if (num > 0) {
-          this.#children.add(town);
-          town.#parent = this.element;
-          town.render();
-          num--;
-        }
-      });
-    } else return;
+    if(!Town.#objects.size)return;
+    for (const town of Town.#objects){
+      if (num) {
+        // this.#children.add(town);
+        town.#parent = this.element;
+        town.render();
+        num--;
+      }
+    }
   }
   createMailbox() {
     const size = Math.random() + 1;

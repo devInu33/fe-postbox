@@ -9,8 +9,8 @@ const init = () => {
   base.style.width = `${document.documentElement.clientWidth}px`;
 
   const town = new Town(base);
-
-  const num = randomNum(20);
+  const LIMIT = 20;
+  const num = randomNum(LIMIT);
   for (let i = 0; i < num; i++) {
     new Town();
   }
