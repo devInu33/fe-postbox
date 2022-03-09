@@ -33,7 +33,7 @@ export const quickSort = (array, compare, left = 0, right = array.length - 1  ) 
   return array;
 };
 
-export const randomNum = (num) => Math.random() * num;
+export const randomNum = (num) => Math.floor(Math.random() * num)+1;
 export const action = (element) => {
   if (element.classList.contains("mailbox")) {
     Visitor.sizes.push(element.dataset.size);

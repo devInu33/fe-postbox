@@ -2,12 +2,8 @@ import { Mailbox } from "./Mailbox.js";
 import { Model } from "./Model.js";
 import { randomBoolean, randomNum } from "./util.js";
 
-<<<<<<< HEAD
-export default class Town {
-  #parent;
-=======
+
 export default class Town extends Model {
->>>>>>> 66b2891518bf3cda29c9525135d878a9050d7ef0
   mailBox = null;
   name;
 
@@ -20,18 +16,12 @@ export default class Town extends Model {
   _render() {
     Model.objects.delete(this);
     let num = randomNum(Model.objects.size);
-    this.el.style.width = `${this.parent.clientWidth / num}px`;
-    this.el.style.height = `${this.parent.clientHeight / num}px`;
-    this.el = document.createElement("div");
+    this.el.style.width = `${Math.floor(this.parent.style.width/num)  }px`;
+    this.el.style.height = `${Math.floor(this.parent.style.height/num)  }px`;
     this.el.classList.add("town");
     this.el.dataset["name"] = this.name;
-
-<<<<<<< HEAD
-    this.#parent.appendChild(this)
-=======
     const bool = randomBoolean();
 
->>>>>>> 66b2891518bf3cda29c9525135d878a9050d7ef0
     if (bool) {
       this.createMailbox();
     }
@@ -40,7 +30,7 @@ export default class Town extends Model {
 
     for (const town of Model.objects) {
       if (num) {
-        town.#parent = this.element;
+        town.parent = this.el;
         town.render();
         num--;
       }
@@ -48,7 +38,7 @@ export default class Town extends Model {
   }
   createMailbox() {
     const size = Math.floor(Math.random() * Model.objects.size + 1);
-    this.mailBox = new Mailbox(size, this);
+    this.mailBox = new Mailbox(size, this.el);
     this.mailBox.render();
     Model.boxes.add(this);
   }

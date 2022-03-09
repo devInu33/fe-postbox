@@ -10,7 +10,7 @@ export class Model {
 
   render() {
     this._render();
-    this.parent.el.appendChild(this.el);
+    this.parent.appendChild(this.el);
   }
 
   _render() {
