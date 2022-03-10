@@ -1,9 +1,13 @@
-body{
-    display:flex;
+html, body {
+    height:100%;
 }
 .town{
+
+    display: block;
+    position:relative;
     border-radius: 20px;
     border: 3px solid blue;
+    margin:3px;
 }
 .info{
     right:0;

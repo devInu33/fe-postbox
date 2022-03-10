@@ -15,8 +15,9 @@ const init = () => {
   for (let i = 0; i < num; i++) {
     new Town(randomChars[i + 1]);
   }
-  town.render();
   new CheckButton();
+    town.render();
+
   const visitor = new Visitor(town, action);
 };
 
