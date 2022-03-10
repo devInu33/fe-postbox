@@ -43,3 +43,12 @@
 //         this.#parent.
 //     }
 // }
+
+export default class Scanner {
+  #model;
+  constructor(model) {
+    this.#model = model;
+  }
+
+  scan(model) {}
+}

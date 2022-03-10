@@ -1,4 +1,3 @@
-import { Mailbox } from "./Mailbox.js";
 import { Model } from "./Model.js";
 import { randomBoolean, randomNum } from "./util.js";
 
@@ -9,7 +8,6 @@ export default class Town extends Model {
   constructor(name = undefined, parent = null) {
     super(parent);
     this.name = name;
-    Model.objects.add(this);
   }
 
   _render() {
@@ -27,16 +25,10 @@ export default class Town extends Model {
 
     for (const town of Model.objects) {
       if (num) {
-        town.parent = this.el;
+        town.parent = this;
         town.render();
         num--;
       }
     }
-  }
-  createMailbox() {
-    const size = Math.floor(Math.random() * Model.objects.size + 1);
-    this.mailBox = new Mailbox(size, this.el);
-    this.mailBox.render();
-    Model.boxes.add(this);
   }
 }
