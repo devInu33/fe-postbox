@@ -51,9 +51,23 @@ import {Mailbox} from "./Mailbox.js";
 
 export default class Scanner {
   #model;
-  constructor(model) {
+  #visitor;
+  constructor(model, visitor) {
     this.#model = model;
+    this.#visitor =visitor;
   }
-
-  scan(model) {}
+  scan(model) {
+    const f = target=>{
+      if(!target.parent){
+        document.body.appendChild(target.el);
+      }
+      target.parent.el.appendChild(target.el);
+    }
+    f(model);
+    this.visit(f,model)
+  }
+  visit(f,target){this.#visitor.visit(f,target);}
 }
+const = new Town().render();
+
+new Scanner.scan(town)

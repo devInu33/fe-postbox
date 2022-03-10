@@ -27,16 +27,10 @@ class Visitor {
 // Data
 export class ModelVisitor extends Visitor {
   visit(action, target) {
-    // town -> children 순회
-    const stack = [];
-    let curr = target;
-    if (!curr) return;
-    do {
-      action(curr);
-      const children = Array.from(curr.children);
-      if (children.length) {
-        stack.push(children.pop());
-      }
-    } while ((curr = stack.pop()));
+    if(!target.children.size)return;
+    target.children.forEach(child=>{
+      action(child);
+      this.visit(child)
+    })
   }
 }

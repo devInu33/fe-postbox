@@ -8,9 +8,7 @@ export class Model {
   static boxes = new Set();
 
   constructor(parent = undefined) {
-    if (parent) {
-      this.parent = parent;
-    }
+    this.parent = parent;
     Model.objects.add(this);
   }
 
@@ -24,11 +22,7 @@ export class Model {
       parseInt(this.parent.style.height) / 2
     )}px`;
 
-    if (!this.parent) {
-      document.body.appendChild(this);
-    } else {
-      this.parent.children.add(this);
-    }
+    this.parent.children.add(this);
     this._render();
   }
 
