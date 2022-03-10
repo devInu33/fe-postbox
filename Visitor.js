@@ -4,19 +4,13 @@ class Visitor {
   }
 }
 export class DomVisitor extends Visitor {
-  el;
-  #target;
-  #action;
-  constructor(target, action) {
-    this.#target = target;
-    this.#action = action;
-  }
-  visit() {
+
+  visit(action ,target) {
     const stack = [];
-    let curr = this.#target.el.firstElementChild;
+    let curr = target.el.firstElementChild;
     if (!curr) return;
     do {
-      this.#action(curr);
+      action(curr);
       if (curr.firstElementChild) stack.push(curr.firstElementChild);
       if (curr.nextElementSibling) stack.push(curr.nextElementSibling);
     } while ((curr = stack.pop()));
