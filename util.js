@@ -1,4 +1,4 @@
-import { Visitor } from "./Visitor.js";
+import { DomVisitor } from "./Visitor.js";
 
 export const randomBoolean = () => Math.random() < 0.5;
 export const quickSort = (
@@ -37,12 +37,12 @@ export const quickSort = (
   return array;
 };
 
-export const randomNum = (num) => Math.floor(Math.random() *num)+1;
+export const randomNum = (num) => Math.floor(Math.random() * num) + 1;
 export const action = (element) => {
   if (element.classList.contains("mailbox")) {
-    Visitor.sizes.push(element.dataset.size);
+    DomVisitor.sizes.push(element.dataset.size);
   } else if (element.classList.contains("town")) {
-    Visitor.towns.push(element.dataset.name);
+    DomVisitor.towns.push(element.dataset.name);
   } else return;
 };
 

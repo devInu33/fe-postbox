@@ -1,3 +1,8 @@
+class Visitor {
+  visit(action, target) {
+    throw "Override";
+  }
+}
 export class DomVisitor extends Visitor {
   el;
   #target;
@@ -18,19 +23,13 @@ export class DomVisitor extends Visitor {
   }
 }
 
-class Visitor {
-  visit(action, target) {
-    throw "Override";
-  }
-}
-
 // Data
 export class ModelVisitor extends Visitor {
   visit(action, target) {
-    if(!target.children.size)return;
-    target.children.forEach(child=>{
+    if (!target.children.size) return;
+    target.children.forEach((child) => {
       action(child);
-      this.visit(child)
-    })
+      this.visit(action, child);
+    });
   }
 }

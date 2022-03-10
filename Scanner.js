@@ -1,8 +1,3 @@
-
-import Town from "./Town.js";
-import {Mailbox} from "./Mailbox.js";
-
-
 // import Town from "./Town";
 // import {Mailbox} from "./Mailbox";
 //
@@ -50,24 +45,24 @@ import {Mailbox} from "./Mailbox.js";
 // }
 
 export default class Scanner {
-  #model;
   #visitor;
-  constructor(model, visitor) {
-    this.#model = model;
-    this.#visitor =visitor;
+  constructor(visitor) {
+    this.#visitor = visitor;
   }
-  scan(model) {
-    const f = target=>{
-      if(!target.parent){
-        document.body.appendChild(target.el);
-      }
-      target.parent.el.appendChild(target.el);
-    }
-    f(model);
-    this.visit(f,model)
-  }
-  visit(f,target){this.#visitor.visit(f,target);}
-}
-const = new Town().render();
 
-new Scanner.scan(town)
+  scan(model) {
+    const f = (target) => {
+      if (!target.parent) {
+        document.body.appendChild(target.el);
+      } else {
+        target.parent.el.appendChild(target.el);
+      }
+    };
+    f(model);
+    this.visit(f, model);
+  }
+
+  visit(f, target) {
+    this.#visitor.visit(f, target);
+  }
+}
