@@ -1,9 +1,16 @@
 html, body {
     height:100%;
 }
+.base{
+    height:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
 .town{
 
-    display: block;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     position:relative;
     border-radius: 20px;
     border: 3px solid blue;

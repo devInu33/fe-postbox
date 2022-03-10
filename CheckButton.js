@@ -1,9 +1,10 @@
 import { Model } from "./Model.js";
 import { quickSort } from "./util.js";
-import { ModelVisitor } from "./Visitor.js";
+import {DomVisitor, ModelVisitor} from "./Visitor.js";
+import {DomScanner, ModelScanner} from "./Scanner";
 
 export const CheckButton = class {
-  constructor() {
+  constructor(callback) {
     const info = document.createElement("div");
     info.innerHTML = `
       <button class="redbutton">빨강 우체통 확인</button>
@@ -13,15 +14,16 @@ export const CheckButton = class {
     document.body.appendChild(info);
 
     info.querySelector(".redbutton").addEventListener("click", ({ target }) => {
-      ModelVisitor.towns = [];
-      ModelVisitor.sizes = [];
+      callback();
       this.print();
     });
   }
   print() {
+
+
     const sizes = [];
     const towns = [];
-    for (const box of Model.boxes) {
+    for (const box of ModelScanner.boxes) {
       sizes.push(box);
       towns.push(box);
       box.el.style.border = `2px solid red`;

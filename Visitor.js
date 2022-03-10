@@ -3,8 +3,8 @@ class Visitor {
     throw "Override";
   }
 }
-export class DomVisitor extends Visitor {
 
+export class DomVisitor extends Visitor{
   visit(action ,target) {
     const stack = [];
     let curr = target.el.firstElementChild;
@@ -17,7 +17,7 @@ export class DomVisitor extends Visitor {
   }
 }
 
-// Data
+
 export class ModelVisitor extends Visitor {
   visit(action, target) {
     if (!target.children.size) return;
