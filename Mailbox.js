@@ -3,9 +3,7 @@ import { Model } from "./Model.js";
 export class Mailbox extends Model {
   size;
 
-
-  constructor(size, parent=null) {
-
+  constructor(size, parent = null) {
     super(parent);
     this.size = size;
   }
@@ -25,5 +23,6 @@ export class Mailbox extends Model {
       this.el.dataset["size"] = this.size;
       this.parent.mailBox = this;
     }
+    Model.objects.delete(this);
   }
 }

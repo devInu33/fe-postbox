@@ -43,9 +43,11 @@
 //         this.#parent.
 //     }
 // }
+
 import {ModelVisitor} from "./Visitor.js";
 
-export default class Scanner{
+export default class Scanner {
+
   #visitor;
   constructor(visitor) {
     this.#visitor = visitor;
@@ -53,12 +55,12 @@ export default class Scanner{
   visit(f, target) {
     this.#visitor.visit(f, target);
   }
-  scan(model){
-    throw 'override';
+  scan(model) {
+    throw "override";
   }
 }
 
-export class DomScanner extends Scanner{
+export class DomScanner extends Scanner {
   scan(model) {
     const f = (target) => {
       if (!target.parent) {
@@ -72,17 +74,16 @@ export class DomScanner extends Scanner{
   }
 }
 
-
-export class ModelScanner extends Scanner{
-  static boxes = new Set;
+export class ModelScanner extends Scanner {
+  static boxes = new Set();
   scan(model) {
-    const arr = []
-    const f =(target)=>{
-      if(target.mailBox){
+    const arr = [];
+    const f = (target) => {
+      if (target.mailBox) {
         ModelScanner.boxes.add(target.name);
       }
-    }
+    };
     f(model);
-    this.visit(f,model);
+    this.visit(f, model);
   }
 }
