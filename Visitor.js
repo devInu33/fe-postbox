@@ -4,8 +4,8 @@ class Visitor {
   }
 }
 
-export class DomVisitor extends Visitor{
-  visit(action ,target) {
+export class DomVisitor extends Visitor {
+  visit(action, target) {
     const stack = [];
     let curr = target.el.firstElementChild;
     if (!curr) return;
@@ -16,7 +16,6 @@ export class DomVisitor extends Visitor{
     } while ((curr = stack.pop()));
   }
 }
-
 
 export class ModelVisitor extends Visitor {
   visit(action, target) {
