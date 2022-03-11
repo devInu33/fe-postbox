@@ -23,14 +23,4 @@ export default class Town extends Model {
     if (this.gene().next().done) return;
     this.children.forEach((child) => child.render());
   }
-  *gene() {
-    let num = randomNum(Model.objects.size);
-
-    while (num--) {
-      const object = Array.from(Model.objects)[0];
-      object.parent = this;
-      this.children.add(object);
-      yield;
-    }
-  }
 }
