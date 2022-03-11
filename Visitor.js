@@ -28,6 +28,5 @@ export class ModelVisitor extends Visitor {
       if(curr.child) stack.push(curr.child);
       if(curr.next)stack.push(curr.next);
     }while((curr=stack.pop()));
-
   }
 }
