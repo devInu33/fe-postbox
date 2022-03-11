@@ -4,15 +4,18 @@ import {DomVisitor, ModelVisitor} from "./Visitor.js";
 import {ButtonScanner, DomScanner} from "./Scanner.js";
 
 export const CheckButton = class {
+  scanner=new DomScanner(new DomVisitor());
+  target = document.createElement("div");
   constructor(callback) {
-    const info = document.createElement("div");
-    info.innerHTML = `
+
+    this.target.innerHTML = `
       <button class="redbutton">빨강 우체통 확인</button>
        <div class="description"></div>
     `;
-    info.classList.add("info");
-    document.body.appendChild(info);
-    const button = new DomScanner(new DomVisitor()).scan(info, 'redbutton');
+    this.target.classList.add("info");
+    document.body.appendChild(this.target);
+
+    const button = this.scanner.scan(this.target, 'redbutton');
     button.addEventListener("click", ({ target }) => {
       callback();
       this.print();
@@ -43,7 +46,7 @@ export const CheckButton = class {
       }
     });
 
-    document.querySelector(".info>.description").innerHTML = `<p>${sizes
+    this.scanner.scan(this.target,"description").innerHTML = `<p>${sizes
       .reverse()
       .map((size) => `${size.name}`)
       .join(",")}</p>
