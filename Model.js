@@ -1,31 +1,47 @@
 import { randomNum } from "./util.js";
+import {ModelVisitor} from "./Visitor.js";
 
 export class Model {
   parent;
   el = document.createElement("div");
+  next = null;
+  child;
   static objects = new Set();
   static boxes = new Set();
-
-  constructor(parent) {
+  visitor = new ModelVisitor();
+  constructor(parent = undefined) {
     this.parent = parent;
+    Model.objects.add(this);
   }
-
+  setNext(v){
+    let curr= this;
+    while(curr.next){
+      curr = curr.next;
+    }
+    curr.next = v;
+  }
   render() {
+
+    const num = randomNum(Model.objects.size);
     Model.objects.delete(this);
+    this.el.style.height = this.parent
+      ? `${Math.floor(parseInt(this.parent.el.style.height) / num)}px`
+      : `${document.documentElement.clientHeight}px`;
+    this.el.style.width = this.parent
+      ? `${Math.floor(parseInt(this.parent.el.style.width) / num)}px`
+      : `${document.documentElement.clientWidth}px`;
 
-    let num = randomNum(Model.objects.size);
-    this.el.style.width = `${Math.floor(
-      parseInt(this.parent.style.width) / num
-    )}px`;
-    this.el.style.height = `${Math.floor(
-      parseInt(this.parent.style.height) / num
-    )}px`;
+    if(this._render().next().done){
+      if(this.next)this.next.render();
+      if(this.child)this.child.render();
+    }
 
-    this._render();
-    this.parent.appendChild(this.el);
+
   }
 
-  _render() {
+
+  *_render() {
+
     throw "Override";
   }
 }

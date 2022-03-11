@@ -1,42 +1,40 @@
-import { Mailbox } from "./Mailbox.js";
+
 import { Model } from "./Model.js";
 import { randomBoolean, randomNum } from "./util.js";
+import { Mailbox } from "./Mailbox.js";
+
 
 export default class Town extends Model {
   mailBox = null;
   name;
 
+  // #next = null;
   constructor(name = undefined, parent = null) {
     super(parent);
     this.name = name;
-    Model.objects.add(this);
   }
 
-  _render() {
+  * _render() {
     let num = randomNum(Model.objects.size);
-
-    this.el.classList.add("town");
+    parent ? this.el.classList.add("town") : this.el.classList.add("base");
     this.el.dataset["name"] = this.name;
-    const bool = randomBoolean();
-
-    if (bool) {
-      this.createMailbox();
+    if(randomBoolean()){
+      this.mailBox= new Mailbox(Math.floor(Math.random()*num+1), this);
     }
+    if (!Model.objects.size) yield;
 
-    if (!Model.objects.size) return;
-
-    for (const town of Model.objects) {
-      if (num) {
-        town.parent = this.el;
-        town.render();
-        num--;
+    for (const model of Model.objects) {
+      if (num <= 0) yield;
+      num -= 1;
+      model.render()
+      if (!this.child)
+        this.child = model
+      else {
+        this.child.setNext(model)
       }
+      model.parent = this;
     }
-  }
-  createMailbox() {
-    const size = Math.floor(Math.random() * Model.objects.size + 1);
-    this.mailBox = new Mailbox(size, this.el);
-    this.mailBox.render();
-    Model.boxes.add(this);
   }
 }
+
+
