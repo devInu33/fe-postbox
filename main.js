@@ -1,23 +1,24 @@
 import Town from "./Town.js";
-import { Visitor } from "./Visitor.js";
-import { action, randomNum, randomChars } from "./util.js";
+import { DomVisitor, ModelVisitor } from "./Visitor.js";
+import { randomNum, randomChars } from "./util.js";
 import { CheckButton } from "./CheckButton.js";
+import {ButtonScanner, DomScanner, RenderScanner} from "./Scanner.js";
 
 const init = () => {
-  const base = document.createElement("div");
-  document.body.appendChild(base);
-  base.style.height = `${document.documentElement.clientHeight}px`;
-  base.style.width = `${document.documentElement.clientWidth}px`;
-
-  const town = new Town("BASE", base);
+  const town = new Town("BASE");
 
   const num = randomNum(20);
   for (let i = 0; i < num; i++) {
     new Town(randomChars[i + 1]);
   }
+
+  const onclick = () => new ButtonScanner(new ModelVisitor()).scan(town);
+  new CheckButton(onclick);
   town.render();
-  new CheckButton();
-  const visitor = new Visitor(town, action);
+
+  const scanner = new RenderScanner(new ModelVisitor());
+  scanner.scan(town);
+
 };
 
 init();
