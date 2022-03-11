@@ -14,23 +14,27 @@ export default class Town extends Model {
     this.name = name;
   }
 
-  *_render() {
+  * _render() {
     let num = randomNum(Model.objects.size);
     parent ? this.el.classList.add("town") : this.el.classList.add("base");
     this.el.dataset["name"] = this.name;
-    if (randomBoolean()) {
-      new Mailbox(randomNum(num), this);
+    if(randomBoolean()){
+      this.mailBox= new Mailbox(Math.floor(Math.random()*num+1), this);
     }
-    if (!Model.objects.size) return;
-    for (const model of Model.objects){
-      if(num<=0)break;
-      num-=1;
+    if (!Model.objects.size) yield;
+
+    for (const model of Model.objects) {
+      if (num <= 0) yield;
+      num -= 1;
+      model.render()
+      if (!this.child)
+        this.child = model
+      else {
+        this.child.setNext(model)
+      }
       model.parent = this;
-      this.children.add(model)
-      yield model;
     }
-
-
   }
-
 }
+
+

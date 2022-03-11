@@ -14,11 +14,14 @@ const init = () => {
 
   const onclick = () => new ButtonScanner(new ModelVisitor()).scan(town);
   new CheckButton(onclick);
-  town.render();
 
+  console.log(town);
+  town.render();
+  new ModelVisitor().visit((model)=>{
+    model.render();
+  }, town);
   const scanner = new RenderScanner(new ModelVisitor());
   scanner.scan(town);
-
 };
 
 init();

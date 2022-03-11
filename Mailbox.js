@@ -14,7 +14,7 @@ export class Mailbox extends Model {
       this.el.innerText = `📮`;
       this.el.dataset["size"] = this.size;
       this.parent.mailBox = this;
+      yield;
     }
-
   }
 }

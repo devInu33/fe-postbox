@@ -20,10 +20,14 @@ export class DomVisitor extends Visitor {
 
 export class ModelVisitor extends Visitor {
   visit(action, target) {
-    if (!target.children.size) return;
-    target.children.forEach((child) => {
-      action(child);
-      this.visit(action, child);
-    });
+    const stack= [];
+    let curr = target.child;
+    if(!curr)return;
+    do{
+      action(curr);
+      if(curr.child) stack.push(curr.child);
+      if(curr.next)stack.push(curr.next);
+    }while((curr=stack.pop()));
+
   }
 }
