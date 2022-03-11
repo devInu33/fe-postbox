@@ -43,7 +43,7 @@
 //         this.#parent.
 //     }
 // }
-import {ModelVisitor} from "./Visitor";
+import {ModelVisitor} from "./Visitor.js";
 
 export default class Scanner{
   #visitor;

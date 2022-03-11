@@ -1,7 +1,7 @@
 import { Model } from "./Model.js";
 import { quickSort } from "./util.js";
 import {DomVisitor, ModelVisitor} from "./Visitor.js";
-import {DomScanner, ModelScanner} from "./Scanner";
+import {DomScanner, ModelScanner} from "./Scanner.js";
 
 export const CheckButton = class {
   constructor(callback) {
