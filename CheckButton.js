@@ -1,7 +1,7 @@
 import { Model } from "./Model.js";
 import { quickSort } from "./util.js";
 import {DomVisitor, ModelVisitor} from "./Visitor.js";
-import {DomScanner, ModelScanner} from "./Scanner.js";
+import {ButtonScanner, DomScanner} from "./Scanner.js";
 
 export const CheckButton = class {
   constructor(callback) {
@@ -12,18 +12,16 @@ export const CheckButton = class {
     `;
     info.classList.add("info");
     document.body.appendChild(info);
-
-    info.querySelector(".redbutton").addEventListener("click", ({ target }) => {
+    const button = new DomScanner(new DomVisitor()).scan(info, 'redbutton');
+    button.addEventListener("click", ({ target }) => {
       callback();
       this.print();
     });
   }
   print() {
-
-
     const sizes = [];
     const towns = [];
-    for (const box of ModelScanner.boxes) {
+    for (const box of ButtonScanner.boxes) {
       sizes.push(box);
       towns.push(box);
       box.el.style.border = `2px solid red`;

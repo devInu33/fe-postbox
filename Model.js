@@ -13,38 +13,22 @@ export class Model {
     Model.objects.add(this);
   }
 
-  next(v) {
-    this.#next = v;
-    return this.#next;
-  }
-
-  render() {
+    render() {
     const num = randomNum(Model.objects.size);
+    Model.objects.delete(this);
     this.el.style.height = this.parent
       ? `${Math.floor(parseInt(this.parent.el.style.height) / num)}px`
       : `${document.documentElement.clientHeight}px`;
     this.el.style.width = this.parent
       ? `${Math.floor(parseInt(this.parent.el.style.width) / num)}px`
       : `${document.documentElement.clientWidth}px`;
-
-    this._render();
-    // Model.objects.delete(this);
-  }
-
-  *gene() {
-    let num = randomNum(Model.objects.size);
-
-    while (num--) {
-      const object = Array.from(Model.objects)[0];
-      Model.objects.delete(object);
-
-      object.parent = this;
-      this.children.add(object);
-      yield;
+    for (const model of this._render()){
+      model.render()
     }
   }
 
-  _render() {
+
+  *_render() {
     throw "Override";
   }
 }

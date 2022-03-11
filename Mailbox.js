@@ -15,7 +15,7 @@ export class Mailbox extends Model {
     Model.boxes.add(this);
   }
 
-  _render() {
+  *_render() {
     if (this.parent.mailBox) return;
     else {
       this.el.classList.add("mailbox");
@@ -23,6 +23,5 @@ export class Mailbox extends Model {
       this.el.dataset["size"] = this.size;
       this.parent.mailBox = this;
     }
-    Model.objects.delete(this);
   }
 }

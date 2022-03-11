@@ -7,7 +7,7 @@ class Visitor {
 export class DomVisitor extends Visitor {
   visit(action, target) {
     const stack = [];
-    let curr = target.el.firstElementChild;
+    let curr = target.firstElementChild;
     if (!curr) return;
     do {
       action(curr);
