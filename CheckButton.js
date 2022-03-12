@@ -23,15 +23,13 @@ export const CheckButton = class {
     });
   }
   print() {
-    const sizes = [];
     const towns = [];
     for (const box of ButtonScanner.boxes) {
-      sizes.push(box);
       towns.push(box);
       box.el.style.border = `2px solid red`;
     }
 
-    quickSort(sizes, (a, b) => {
+    const compare =  (a, b) => {
       const {
         mailBox: { size: asize },
       } = a;
@@ -45,11 +43,11 @@ export const CheckButton = class {
       } else {
         return 0;
       }
-    });
+    };
 
-    this.scanner.scan(this.target,"description").innerHTML = `<p>${sizes
+    this.scanner.scan(this.target,"description").innerHTML = `<p>${quickSort(towns, compare)
       .reverse()
-      .map((size) => `${size.name}`)
+      .map(size => `${size.name}`)
       .join(",")}</p>
     <p>${towns.map((town) => `${town.name}`).join(",")}</p>`;
   }

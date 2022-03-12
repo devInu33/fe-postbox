@@ -5,11 +5,11 @@ export class Model {
   parent;
   el = document.createElement("div");
   next = null;
-  child;
+  child= null;
+  static #root= null;
   static objects = new Set();
-  static boxes = new Set();
   visitor = new ModelVisitor();
-  constructor(parent = undefined) {
+  constructor(parent = null) {
     this.parent = parent;
     Model.objects.add(this);
   }
@@ -19,28 +19,18 @@ export class Model {
       curr = curr.next;
     }
     curr.next = v;
-  }
-  render() {
 
+  }
+  setChild() {
+    if(!this.parent)Model.objects.delete(this);
     const num = randomNum(Model.objects.size);
-    Model.objects.delete(this);
-    this.el.style.height = this.parent
-      ? `${Math.floor(parseInt(this.parent.el.style.height) / num)}px`
-      : `${document.documentElement.clientHeight}px`;
-    this.el.style.width = this.parent
-      ? `${Math.floor(parseInt(this.parent.el.style.width) / num)}px`
-      : `${document.documentElement.clientWidth}px`;
-
-    if(this._render().next().done){
-      if(this.next)this.next.render();
-      if(this.child)this.child.render();
-    }
-
-
+    this._setChild(num)
+    if(this.next)this.next.setChild();
+    if(this.child)this.child.setChild();
   }
 
 
-  *_render() {
+  _setChild(num) {
 
     throw "Override";
   }

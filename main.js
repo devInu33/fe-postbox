@@ -7,19 +7,14 @@ import {ButtonScanner, DomScanner, RenderScanner} from "./Scanner.js";
 const init = () => {
   const town = new Town("BASE");
 
-  const num = randomNum(20);
+  const num = 20;
   for (let i = 0; i < num; i++) {
     new Town(randomChars[i + 1]);
   }
-
   const onclick = () => new ButtonScanner(new ModelVisitor()).scan(town);
   new CheckButton(onclick);
-
+  town.setChild();
   console.log(town);
-  town.render();
-  new ModelVisitor().visit((model)=>{
-    model.render();
-  }, town);
   const scanner = new RenderScanner(new ModelVisitor());
   scanner.scan(town);
 };

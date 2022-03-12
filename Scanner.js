@@ -18,11 +18,7 @@ export default class Scanner {
 export class RenderScanner extends Scanner {
   scan(target) {
     const f = (target) => {
-      if (!target.parent) {
-        document.body.appendChild(target.el);
-      } else {
-        target.parent.el.appendChild(target.el);
-      }
+      !target.parent? document.body.appendChild(target.el) :target.parent.el.appendChild(target.el);
     };
     f(target);
     this.visit(f, target);
